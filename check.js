@@ -1,17 +1,34 @@
 var btn = document.getElementById('submit');
 btn.addEventListener('click', createCases);
-const outputElement = document.querySelector('.correctCases');
-const resultElement = document.querySelector('.cases');
-
+var correctCasesBox = document.getElementById('correctCasesOutput');
 const operators = ["+","-","*","/"];
 
-const testCases = ["Test1", "Test2", "Test3", "Test4"];
 
+let data = {correctCasesMathJS: [], correctCasesMathOBJ: [], incorrectCasesMathJS: [], incorrectCasesMathOBJ: []}
 function createCases(){
-    console.log(document.getElementById("number").value)
-
-    for (let index = 0; index < testCases.length; index++) {
-        outputElement.innerHTML += `<p>` + testCases[index] + `</p>`;
-    }
+    correctCasesBox.value="";
+    numTestCases = document.getElementById("number").value;
     
+    
+    //Generating 
+    for (let index = 0; index < numTestCases; index++) {
+        randNum = math.randomInt(20);
+        data.correctCasesMathJS.push(randNum);
+        randOperation = math.randomInt(4);
+        if (randOperation == 0) {
+            data.correctCasesMathJS.push("+");
+        }else if(randOperation == 1){
+            data.correctCasesMathJS.push("-");
+        }else if(randOperation == 2){
+            data.correctCasesMathJS.push("*");
+        }else if(randOperation == 3){
+            data.correctCasesMathJS.push("/");
+        };
+        randNum = math.randomInt(20);
+        data.correctCasesMathJS.push(randNum);
+        formulaStr = data.correctCasesMathJS.join('');
+        
+        correctCasesBox.value += formulaStr + " = " + math.evaluate(formulaStr) + '\n';
+        data.correctCasesMathJS = [];
+    };
 }
